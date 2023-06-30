@@ -14,7 +14,8 @@ export default async function (req, res) {
     });
     return;
   }
-   const text = req.body.text || "";
+  const text = req.body.text || "";
+  const words = 100
    if (text.trim().length === 0) {
      res.status(400).json({
        error: {
@@ -35,9 +36,9 @@ export default async function (req, res) {
   try {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generateResponse(text),
-      temperature: 0.1,
-      max_tokens: 256,
+      prompt: generateResponse(text, words),
+      temperature: 0.5,
+      max_tokens: 350,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
@@ -59,6 +60,7 @@ export default async function (req, res) {
   }
 }
 
-const generateResponse = (text) => {
-  return `this is a chat between a student already studying in UCLA university and a student who wants to join this university, summarise this chat in very detail:\n\n${text}`;
+const generateResponse = (text, words) => {
+  console.log(words)
+  return `this is a chat between a student already studying in UCLA university and a student who wants to join this university, summarise this chat in long detail in ${words} words:\n\n${text}`;
 }

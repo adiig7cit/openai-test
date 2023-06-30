@@ -4,6 +4,8 @@ import styles from "./index.module.css";
 
 export default function Home() {
   const [text, setText] = useState("");
+  const [words, setWords] = useState('');
+
   const [result, setResult] = useState();
 
   async function onSubmit(event) {
@@ -14,7 +16,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: text }),
+        body: JSON.stringify({ text: text, words: words }),
       });
 
       const data = await response.json();
@@ -24,6 +26,7 @@ export default function Home() {
 
       setResult(data.result);
       setText("");
+      setWords('')
     } catch(error) {
       console.error(error);
       alert(error.message);
@@ -47,6 +50,13 @@ export default function Home() {
             placeholder="Enter a text"
             value={text}
             onChange={(e) => setText(e.target.value)}
+          />
+          <input 
+            type="number" 
+            placeholder="Number of words"
+            min={0}
+            required
+            onChange={(e)=> setWords(e.target.value)}
           />
           <input type="submit" value="Generate summarised text" />
         </form>

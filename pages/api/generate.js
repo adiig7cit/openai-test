@@ -36,7 +36,7 @@ export default async function (req, res) {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generateResponse(text),
-      temperature: 0.7,
+      temperature: 0.1,
       max_tokens: 256,
       top_p: 1,
       frequency_penalty: 0,
@@ -60,5 +60,5 @@ export default async function (req, res) {
 }
 
 const generateResponse = (text) => {
-  return `Summarize this in 40 words:\n\n${text}`;
+  return `this is a chat between a student already studying in UCLA university and a student who wants to join this university, summarise this chat in very detail:\n\n${text}`;
 }
